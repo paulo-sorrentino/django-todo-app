@@ -26,8 +26,16 @@
     <tbody>
         {% for todo in all_items %}
         <tr class="text-center {% if todo.completed %}table-success{% endif %}">
-            <td scope="row" class="striker">{{ todo.item}}</td>
-            <td>{{ todo.completed }}</td>
+            <td scope="row" class="striker">
+                <a href="{% url 'edit' todo.id %}">{{ todo.item}}</a>
+            </td>
+            <td>
+                {% if todo.completed %}
+                <a href="{% url 'uncross' todo.id %}">Uncross</a>
+                {% else %}
+                <a href="{% url 'cross_off' todo.id %}">Cross off</a>
+                {% endif %}
+            </td>
             <td><a href="{% url 'delete' todo.id %}" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>
         {% endfor %}
